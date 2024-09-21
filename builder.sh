@@ -126,10 +126,10 @@ done
 for file in ${static[@]}; do
  if [ -f ${work_dir}/${file} ]; then
   cp ${work_dir}/${file} ${site_dir}
-  echo $file >> ${work_dir}/tracker
+  echo $file >> ${site_dir}/tracker
  elif [ -d ${work_dir}/${file} ]; then
   cp -r ${work_dir}/${file} ${site_dir}
-  echo $file >> ${work_dir}/tracker
+  echo $file >> ${site_dir}/tracker
  else
   echo "can't find ${work_dir}/${file}"
   exit 1
