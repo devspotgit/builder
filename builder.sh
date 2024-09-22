@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 work_dir=""
 
@@ -25,17 +25,17 @@ else
 fi
 
 #load templates
-for template in ${templates[@]}; do
+for template in "${templates[@]}"; do
  if [ -f ${work_dir}/${template}.sh ]; then
   source ${work_dir}/${template}.sh
-  else
+ else
    echo "can't find ${work_dir}/${template}.sh"
    exit 1
-  fi
+ fi
 done
 
 #load global data
-for data in ${global_data[@]}; do
+for data in "${global_data[@]}"; do
  if [ -f ${work_dir}/${data}.sh ]; then
   source ${work_dir}/${data}.sh
  else
@@ -46,7 +46,7 @@ done
 
 
 #load page data
-for page in ${pages[@]}; do
+for page in "${pages[@]}"; do
  if [ -f ${work_dir}/${page}.sh ]; then
   source ${work_dir}/${page}.sh
  else
@@ -57,9 +57,9 @@ done
 
 
 #load collection data
-for collection in ${collections[@]}; do
+for collection in "${collections[@]}"; do
  declare -n _collection=$collection
- for file in ${_collection[@]}; do
+ for file in "${_collection[@]}"; do
   if [ -f ${work_dir}/${collection}/${file}.sh ]; then
    source ${work_dir}/${collection}/${file}.sh
   else
@@ -98,7 +98,7 @@ fi
 
 
 #create pages from page data
-for page in ${pages[@]}; do
+for page in "${pages[@]}"; do
  declare -n _page=$page
  if [ "${_page[template]}" != "" ]; then
   mkdir -p ${site_dir}/${_page[path]}
@@ -110,9 +110,9 @@ done
 
 
 #create pages from collection data
-for collection in ${collections[@]}; do
+for collection in "${collections[@]}"; do
  declare -n _collection=$collection
- for file in ${_collection[@]}; do
+ for file in "${_collection[@]}"; do
   declare -n _file=$file
   if [ "${_file[template]}" != "" ]; then
    mkdir -p ${site_dir}/${_file[path]}
@@ -123,7 +123,7 @@ for collection in ${collections[@]}; do
 done
 
 #copy static file to site folder
-for file in ${static[@]}; do
+for file in "${static[@]}"; do
  if [ -f ${work_dir}/${file} ]; then
   cp ${work_dir}/${file} ${site_dir}
   echo $file >> ${site_dir}/tracker
